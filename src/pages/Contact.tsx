@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { MapPin, Phone, Clock } from "lucide-react";
 import contactHero from "@/assets/contact-hero.jpg";
 import AnimatedSection from "@/components/AnimatedSection";
+import LocationMap from "@/components/LocationMap";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -34,6 +35,8 @@ const Contact = () => {
       address: "1247 South Cedar Crest Boulevard, Suite 300\nAllentown, PA 18103",
       phone: "(610) 435-5599",
       phoneLink: "tel:+16104355599",
+      lat: 40.5732,
+      lng: -75.5377,
       hours: [
         { day: "Monday - Thursday", time: "10:30 AM - 7:30 PM" },
         { day: "Friday", time: "9:30 AM - 6:30 PM" },
@@ -46,6 +49,8 @@ const Contact = () => {
       address: "28 South 14th Street\nQuakertown, PA 18951",
       phone: "(215) 538-4550",
       phoneLink: "tel:+12155384550",
+      lat: 40.4418,
+      lng: -75.3415,
       hours: [
         { day: "Monday - Thursday", time: "10:30 AM - 7:30 PM" },
         { day: "Friday", time: "9:30 AM - 6:30 PM" },
@@ -57,6 +62,8 @@ const Contact = () => {
       address: "456 School Lane\nHarleysville, PA 19438",
       phone: "(215) 256-0808",
       phoneLink: "tel:+12152560808",
+      lat: 40.2845,
+      lng: -75.3882,
       hours: [
         { day: "Monday - Friday", time: "10:00 AM - 7:00 PM" },
         { day: "Saturday - Sunday", time: "Closed" },
@@ -67,6 +74,8 @@ const Contact = () => {
       address: "60 W Walnut St.\nLancaster, PA 17603",
       phone: "(717) 735-8844",
       phoneLink: "tel:+17177358844",
+      lat: 40.0379,
+      lng: -76.3055,
       hours: [
         { day: "Monday - Friday", time: "10:00 AM - 7:00 PM" },
         { day: "Saturday - Sunday", time: "Closed" },
@@ -77,6 +86,8 @@ const Contact = () => {
       address: "8355 Loretto Avenue\nPhiladelphia, PA 19152",
       phone: "(215) 332-3600",
       phoneLink: "tel:+12153323600",
+      lat: 40.0652,
+      lng: -75.0355,
       hours: [
         { day: "Monday - Friday", time: "10:00 AM - 7:00 PM" },
         { day: "Saturday", time: "9:00 AM - 3:00 PM" },
@@ -88,6 +99,8 @@ const Contact = () => {
       address: "6100-02 N. 5th Street Storefront\nPhiladelphia, PA 19120",
       phone: "(215) 455-5599",
       phoneLink: "tel:+12154555599",
+      lat: 40.0382,
+      lng: -75.1380,
       hours: [
         { day: "Monday - Friday", time: "10:00 AM - 7:00 PM" },
         { day: "Saturday - Sunday", time: "Closed" },
@@ -249,21 +262,23 @@ const Contact = () => {
                     </div>
 
                     {/* Map */}
-                    <a 
-                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address.replace('\n', ', '))}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block aspect-video lg:aspect-square bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300"
-                      title={`Get directions to ${office.name}`}
-                    >
-                      <div className="w-full h-full flex flex-col items-center justify-center gap-4 p-6 group-hover:scale-105 transition-transform duration-300">
-                        <MapPin className="w-16 h-16 text-accent" />
-                        <div className="text-center">
-                          <p className="font-bold text-lg mb-2">View on Google Maps</p>
-                          <p className="text-sm text-muted-foreground">Click for directions</p>
-                        </div>
-                      </div>
-                    </a>
+                    <div className="aspect-video lg:aspect-square bg-muted rounded-lg overflow-hidden relative">
+                      <LocationMap 
+                        lat={office.lat}
+                        lng={office.lng}
+                        officeName={office.name}
+                        address={office.address}
+                      />
+                      <a 
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address.replace('\n', ', '))}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute bottom-4 right-4 z-[1000] bg-accent text-accent-foreground px-4 py-2 rounded-lg shadow-lg hover:bg-accent/90 transition-colors font-medium text-sm"
+                        title={`Get directions to ${office.name}`}
+                      >
+                        Get Directions
+                      </a>
+                    </div>
                   </div>
                 </Card>
               </AnimatedSection>

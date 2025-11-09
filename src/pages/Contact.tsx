@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { MapPin, Phone, Clock } from "lucide-react";
+import { MapPin, Phone, Clock, Maximize2 } from "lucide-react";
 import contactHero from "@/assets/contact-hero.jpg";
 import AnimatedSection from "@/components/AnimatedSection";
 import LocationMap from "@/components/LocationMap";
@@ -19,6 +20,7 @@ const Contact = () => {
     phone: "",
     message: "",
   });
+  const [selectedOffice, setSelectedOffice] = useState<number | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -262,13 +264,22 @@ const Contact = () => {
                     </div>
 
                     {/* Map */}
-                    <div className="aspect-video lg:aspect-square bg-muted rounded-lg overflow-hidden relative">
-                      <LocationMap 
-                        lat={office.lat}
-                        lng={office.lng}
-                        officeName={office.name}
-                        address={office.address}
-                      />
+                    <div className="aspect-video lg:aspect-square bg-muted rounded-lg overflow-hidden relative group cursor-pointer">
+                      <div onClick={() => setSelectedOffice(index)} className="w-full h-full">
+                        <LocationMap 
+                          lat={office.lat}
+                          lng={office.lng}
+                          officeName={office.name}
+                          address={office.address}
+                        />
+                      </div>
+                      <button
+                        onClick={() => setSelectedOffice(index)}
+                        className="absolute top-4 right-4 z-[1000] bg-background/90 backdrop-blur-sm text-foreground p-2 rounded-lg shadow-lg hover:bg-background transition-colors"
+                        title="View fullscreen"
+                      >
+                        <Maximize2 className="w-5 h-5" />
+                      </button>
                       <a 
                         href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address.replace('\n', ', '))}`}
                         target="_blank"
@@ -296,6 +307,40 @@ const Contact = () => {
           </AnimatedSection>
         </div>
       </section>
+
+      {/* Fullscreen Map Dialog */}
+      <Dialog open={selectedOffice !== null} onOpenChange={() => setSelectedOffice(null)}>
+        <DialogContent className="max-w-[95vw] max-h-[95vh] h-[95vh] p-0">
+          <DialogHeader className="p-6 pb-4">
+            <DialogTitle className="text-2xl">
+              {selectedOffice !== null && offices[selectedOffice].name}
+            </DialogTitle>
+            <p className="text-muted-foreground mt-2">
+              {selectedOffice !== null && offices[selectedOffice].address.replace('\n', ', ')}
+            </p>
+          </DialogHeader>
+          <div className="h-[calc(95vh-140px)] w-full relative">
+            {selectedOffice !== null && (
+              <>
+                <LocationMap 
+                  lat={offices[selectedOffice].lat}
+                  lng={offices[selectedOffice].lng}
+                  officeName={offices[selectedOffice].name}
+                  address={offices[selectedOffice].address}
+                />
+                <a 
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(offices[selectedOffice].address.replace('\n', ', '))}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-4 right-4 z-[1000] bg-accent text-accent-foreground px-6 py-3 rounded-lg shadow-xl hover:bg-accent/90 transition-colors font-medium"
+                >
+                  Get Directions
+                </a>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* CTA Section */}
       <AnimatedSection>

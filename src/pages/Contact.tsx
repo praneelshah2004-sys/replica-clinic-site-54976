@@ -40,7 +40,6 @@ const Contact = () => {
         { day: "Saturday", time: "9:00 AM - 3:00 PM" },
         { day: "Sunday", time: "Closed" },
       ],
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3033.5421!2d-75.5377!3d40.5732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c43e6c0a0a0a0a%3A0x0!2z1247+South+Cedar+Crest+Boulevard,+Allentown,+PA+18103!5e0!3m2!1sen!2sus!4v1234567890",
     },
     {
       name: "Quakertown Area",
@@ -52,7 +51,6 @@ const Contact = () => {
         { day: "Friday", time: "9:30 AM - 6:30 PM" },
         { day: "Saturday - Sunday", time: "Closed" },
       ],
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3027.8421!2d-75.3415!3d40.4418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c42b7c0a0a0a0a%3A0x0!2z28+South+14th+Street,+Quakertown,+PA+18951!5e0!3m2!1sen!2sus!4v1234567890",
     },
     {
       name: "Harleysville Area",
@@ -63,7 +61,6 @@ const Contact = () => {
         { day: "Monday - Friday", time: "10:00 AM - 7:00 PM" },
         { day: "Saturday - Sunday", time: "Closed" },
       ],
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3043.2421!2d-75.3882!3d40.2845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6a0c0a0a0a0a0%3A0x0!2z456+School+Lane,+Harleysville,+PA+19438!5e0!3m2!1sen!2sus!4v1234567890",
     },
     {
       name: "Lancaster Area",
@@ -74,7 +71,6 @@ const Contact = () => {
         { day: "Monday - Friday", time: "10:00 AM - 7:00 PM" },
         { day: "Saturday - Sunday", time: "Closed" },
       ],
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3064.1421!2d-76.3055!3d40.0379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6333c0a0a0a0a%3A0x0!2z60+W+Walnut+St,+Lancaster,+PA+17603!5e0!3m2!1sen!2sus!4v1234567890",
     },
     {
       name: "North-East Philadelphia Area",
@@ -86,7 +82,6 @@ const Contact = () => {
         { day: "Saturday", time: "9:00 AM - 3:00 PM" },
         { day: "Sunday", time: "Closed" },
       ],
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.5421!2d-75.0355!3d40.0652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6b0c0a0a0a0a0%3A0x0!2z8355+Loretto+Avenue,+Philadelphia,+PA+19152!5e0!3m2!1sen!2sus!4v1234567890",
     },
     {
       name: "North Philadelphia Area",
@@ -97,7 +92,6 @@ const Contact = () => {
         { day: "Monday - Friday", time: "10:00 AM - 7:00 PM" },
         { day: "Saturday - Sunday", time: "Closed" },
       ],
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3051.2421!2d-75.1380!3d40.0382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6c0c0a0a0a0a0%3A0x0!2z6100+N+5th+Street,+Philadelphia,+PA+19120!5e0!3m2!1sen!2sus!4v1234567890",
     },
   ];
 
@@ -255,26 +249,21 @@ const Contact = () => {
                     </div>
 
                     {/* Map */}
-                    <div className="aspect-video lg:aspect-square bg-muted rounded-lg overflow-hidden">
-                      <a 
-                        href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address.replace('\n', ', '))}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block h-full cursor-pointer hover:opacity-90 transition-opacity"
-                        title={`Get directions to ${office.name}`}
-                      >
-                        <iframe
-                          src={office.mapUrl}
-                          width="100%"
-                          height="100%"
-                          style={{ border: 0, pointerEvents: 'none' }}
-                          allowFullScreen
-                          loading="lazy"
-                          referrerPolicy="no-referrer-when-downgrade"
-                          title={`${office.name} Location`}
-                        />
-                      </a>
-                    </div>
+                    <a 
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address.replace('\n', ', '))}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block aspect-video lg:aspect-square bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300"
+                      title={`Get directions to ${office.name}`}
+                    >
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-4 p-6 group-hover:scale-105 transition-transform duration-300">
+                        <MapPin className="w-16 h-16 text-accent" />
+                        <div className="text-center">
+                          <p className="font-bold text-lg mb-2">View on Google Maps</p>
+                          <p className="text-sm text-muted-foreground">Click for directions</p>
+                        </div>
+                      </div>
+                    </a>
                   </div>
                 </Card>
               </AnimatedSection>

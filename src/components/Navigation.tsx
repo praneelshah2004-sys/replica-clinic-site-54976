@@ -20,6 +20,7 @@ const Navigation = () => {
     { path: "/", label: "Home" },
     { path: "/services", label: "Dental Services" },
     { path: "/orthodontics", label: "Types of Braces" },
+    { path: "/doctors", label: "Our Doctors" },
     { path: "/virtual-consultation", label: "Virtual Orthodontic Consultation" },
     { path: "/payment", label: "Payment Options" },
     { path: "/contact", label: "Contact Us" },

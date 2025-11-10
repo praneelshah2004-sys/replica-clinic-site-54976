@@ -12,6 +12,7 @@ import Orthodontics from "./pages/Orthodontics";
 import VirtualConsultation from "./pages/VirtualConsultation";
 import Payment from "./pages/Payment";
 import Contact from "./pages/Contact";
+import Doctors from "./pages/Doctors";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/orthodontics" element={<Orthodontics />} />
+              <Route path="/doctors" element={<Doctors />} />
               <Route path="/virtual-consultation" element={<VirtualConsultation />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/contact" element={<Contact />} />

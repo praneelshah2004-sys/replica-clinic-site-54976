@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { GraduationCap, Award, Heart, Mail, Phone } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import drRollins from "@/assets/dr-rollins.jpg";
-import drMalerman from "@/assets/dr-malerman.png";
+import drMalerman from "@/assets/dr-malerman.jpg";
 import { Link } from "react-router-dom";
 
 const Doctors = () => {
